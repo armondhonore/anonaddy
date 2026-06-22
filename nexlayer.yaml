@@ -1,0 +1,29 @@
+application:
+  name: anonaddy
+  pods:
+  - name: app
+    image: anonaddy/anonaddy:latest
+    path: /
+    servicePorts:
+    - 80
+    vars:
+      APP_KEY: "base64:RANDOMKEYHERE+X/rnM7BZZFP+D7TFg="
+      DB_HOST: mysql.pod
+      DB_DATABASE: anonaddy
+      DB_USERNAME: anonaddy
+      DB_PASSWORD: anonaddy
+      MAIL_DRIVER: log
+      ANONADDY_DOMAIN: relaxed-weasel-anonaddy.cloud.nexlayer.ai
+  - name: mysql
+    image: mysql:8.0
+    servicePorts:
+    - 3306
+    vars:
+      MYSQL_DATABASE: anonaddy
+      MYSQL_USER: anonaddy
+      MYSQL_PASSWORD: anonaddy
+      MYSQL_ROOT_PASSWORD: rootpassword
+    volumes:
+    - name: anonaddy-db
+      mountPath: /var/lib/mysql
+      size: 10Gi
