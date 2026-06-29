@@ -10,6 +10,7 @@ application:
       APP_NAME: addy.io
       APP_ENV: production
       APP_KEY: "base64:0j3faZvX73wJBchmAN/ARSU/aoZEb7pWJqw75KqGvSk="
+      ANONADDY_SECRET: "227bd92fc8364e831b05182fb8ed7d8745582d611a634dfc87fafa553ca1b47f"
       APP_URL: https://relaxed-weasel-anonaddy.cloud.nexlayer.ai
       DB_CONNECTION: mysql
       DB_HOST: anonaddy-mysql.pod
