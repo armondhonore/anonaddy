@@ -2,7 +2,7 @@ application:
   name: anonaddy
   pods:
   - name: app
-    image: anonaddy/anonaddy:latest
+    image: mirror.gcr.io/anonaddy/anonaddy:latest
     path: /
     servicePorts:
     - 80
@@ -15,7 +15,7 @@ application:
       MAIL_DRIVER: log
       ANONADDY_DOMAIN: relaxed-weasel-anonaddy.cloud.nexlayer.ai
   - name: mysql
-    image: mysql:8.0
+    image: mirror.gcr.io/library/mysql:8.0
     servicePorts:
     - 3306
     vars:
