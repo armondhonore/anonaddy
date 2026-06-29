@@ -7,23 +7,42 @@ application:
     servicePorts:
     - 80
     vars:
-      APP_KEY: "base64:RANDOMKEYHERE+X/rnM7BZZFP+D7TFg="
-      DB_HOST: mysql.pod
+      APP_NAME: addy.io
+      APP_ENV: production
+      APP_KEY: "base64:0j3faZvX73wJBchmAN/ARSU/aoZEb7pWJqw75KqGvSk="
+      APP_URL: https://relaxed-weasel-anonaddy.cloud.nexlayer.ai
+      DB_CONNECTION: mysql
+      DB_HOST: anonaddy-mysql.pod
+      DB_PORT: "3306"
       DB_DATABASE: anonaddy
       DB_USERNAME: anonaddy
-      DB_PASSWORD: anonaddy
+      DB_PASSWORD: ${MYSQL_PASSWORD}
+      CACHE_DRIVER: redis
+      QUEUE_CONNECTION: redis
+      SESSION_DRIVER: redis
+      SESSION_SECURE_COOKIE: "false"
+      REDIS_CLIENT: phpredis
+      REDIS_HOST: anonaddy-redis.pod
+      REDIS_PORT: "6379"
       MAIL_DRIVER: log
+      MAIL_FROM_NAME: addy.io
+      MAIL_FROM_ADDRESS: mailer@relaxed-weasel-anonaddy.cloud.nexlayer.ai
       ANONADDY_DOMAIN: relaxed-weasel-anonaddy.cloud.nexlayer.ai
-  - name: mysql
+      ANONADDY_HOSTNAME: relaxed-weasel-anonaddy.cloud.nexlayer.ai
+  - name: anonaddy-mysql
     image: mysql:8.0
     servicePorts:
     - 3306
     vars:
       MYSQL_DATABASE: anonaddy
       MYSQL_USER: anonaddy
-      MYSQL_PASSWORD: anonaddy
-      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
     volumes:
     - name: anonaddy-db
       mountPath: /var/lib/mysql
       size: 10Gi
+  - name: anonaddy-redis
+    image: redis:7-alpine
+    servicePorts:
+    - 6379
