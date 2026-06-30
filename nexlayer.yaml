@@ -3,7 +3,7 @@ application:
   pods:
   - name: app
     image: mirror.gcr.io/anonaddy/anonaddy:latest
-    path: /
+    path: /login
     servicePorts:
     - 8000
     vars:
@@ -40,8 +40,9 @@ application:
       MYSQL_USER: anonaddy
       MYSQL_PASSWORD: anonaddy_pass_250
       MYSQL_ROOT_PASSWORD: anonaddy_root_250
+      MYSQL_DEFAULT_AUTHENTICATION_PLUGIN: mysql_native_password
     volumes:
-    - name: anonaddy-db-v6
+    - name: anonaddy-db-v7
       mountPath: /var/lib/mysql
       size: 10Gi
   - name: anonaddy-redis
