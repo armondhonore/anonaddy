@@ -5,7 +5,7 @@ application:
     image: mirror.gcr.io/anonaddy/anonaddy:latest
     path: /
     servicePorts:
-    - 80
+    - 8000
     vars:
       APP_NAME: addy.io
       APP_ENV: production
