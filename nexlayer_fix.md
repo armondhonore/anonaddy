@@ -22,7 +22,7 @@ application:
       DB_PORT: "3306"
       DB_DATABASE: anonaddy
       DB_USERNAME: anonaddy
-      DB_PASSWORD: "anonadypass"
+      DB_PASSWORD: ${MYSQL_PASSWORD}
       DB_TIMEOUT: "300"
       CACHE_DRIVER: redis
       QUEUE_CONNECTION: redis
@@ -38,16 +38,16 @@ application:
       ANONADDY_HOSTNAME: relaxed-weasel-anonaddy.cloud.nexlayer.ai
       ANONADDY_ENABLE_REGISTRATION: "true"
   - name: anonaddy-mysql
-    image: mirror.gcr.io/library/mariadb:10.11
+    image: mirror.gcr.io/library/mysql:8.0
     servicePorts:
     - 3306
     vars:
-      MARIADB_DATABASE: anonaddy
-      MARIADB_USER: anonaddy
-      MARIADB_PASSWORD: "anonadypass"
-      MARIADB_ROOT_PASSWORD: "anonadyrootpass"
+      MYSQL_DATABASE: anonaddy
+      MYSQL_USER: anonaddy
+      MYSQL_PASSWORD: anonadypass
+      MYSQL_ROOT_PASSWORD: anonadyrootpass
     volumes:
-    - name: anonaddy-db-v3
+    - name: anonaddy-db-v5
       mountPath: /var/lib/mysql
       size: 10Gi
   - name: anonaddy-redis
@@ -58,7 +58,7 @@ application:
 
 Pinned facts:
 - Pre-built image mirror.gcr.io/anonaddy/anonaddy:latest — do NOT rebuild from source
-- MariaDB 10.11 with hardcoded passwords matching app vars (no provisioned secrets)
-- Redis 7-alpine for caching and queues
-- Volume anonaddy-db-v3 for fresh MariaDB data with correct passwords
+- Octobox pattern: mysql pod has HARDCODED MYSQL_PASSWORD=anonadypass; app pod uses ${MYSQL_PASSWORD} reference (platform substitutes "anonadypass")
+- Use mysql:8.0 (NOT mariadb) — server replaces mariadb with mysql; MYSQL_* vars only
+- Volume anonaddy-db-v5 for fresh MySQL data with correct passwords
 - Do not regenerate Dockerfile or nexlayer.yaml
