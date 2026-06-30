@@ -32,10 +32,6 @@ application:
       ANONADDY_DOMAIN: relaxed-weasel-anonaddy.cloud.nexlayer.ai
       ANONADDY_HOSTNAME: relaxed-weasel-anonaddy.cloud.nexlayer.ai
       ANONADDY_ENABLE_REGISTRATION: "true"
-    volumes:
-    - name: anonaddy-data-v1
-      mountPath: /data
-      size: 5Gi
   - name: anonaddy-mysql
     image: mirror.gcr.io/library/mysql:8.0
     servicePorts:
