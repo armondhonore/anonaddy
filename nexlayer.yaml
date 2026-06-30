@@ -17,7 +17,7 @@ application:
       DB_PORT: "3306"
       DB_DATABASE: anonaddy
       DB_USERNAME: anonaddy
-      DB_PASSWORD: ${MYSQL_PASSWORD}
+      DB_PASSWORD: "anonadypass"
       CACHE_DRIVER: redis
       QUEUE_CONNECTION: redis
       SESSION_DRIVER: redis
@@ -31,19 +31,19 @@ application:
       ANONADDY_DOMAIN: relaxed-weasel-anonaddy.cloud.nexlayer.ai
       ANONADDY_HOSTNAME: relaxed-weasel-anonaddy.cloud.nexlayer.ai
   - name: anonaddy-mysql
-    image: mysql:8.0
+    image: mirror.gcr.io/library/mysql:8.0
     servicePorts:
     - 3306
     vars:
       MYSQL_DATABASE: anonaddy
       MYSQL_USER: anonaddy
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_PASSWORD: "anonadypass"
+      MYSQL_ROOT_PASSWORD: "anonadyrootpass"
     volumes:
-    - name: anonaddy-db
+    - name: anonaddy-db-v2
       mountPath: /var/lib/mysql
       size: 10Gi
   - name: anonaddy-redis
-    image: redis:7-alpine
+    image: mirror.gcr.io/library/redis:7-alpine
     servicePorts:
     - 6379
