@@ -17,7 +17,7 @@ application:
       DB_PORT: "3306"
       DB_DATABASE: anonaddy
       DB_USERNAME: anonaddy
-      DB_PASSWORD: "anonaddy_pass_250"
+      DB_PASSWORD: "${MYSQL_PASSWORD}"
       DB_TIMEOUT: "300"
       CACHE_DRIVER: redis
       QUEUE_CONNECTION: redis
@@ -41,7 +41,7 @@ application:
       MYSQL_PASSWORD: anonaddy_pass_250
       MYSQL_ROOT_PASSWORD: anonaddy_root_250
     volumes:
-    - name: anonaddy-db-v5
+    - name: anonaddy-db-v6
       mountPath: /var/lib/mysql
       size: 10Gi
   - name: anonaddy-redis
