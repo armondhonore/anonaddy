@@ -1,9 +1,14 @@
+# Nexlayer build/deploy fix guidance (pinned)
+
+## Fixed nexlayer.yaml
+
+```yaml
 application:
   name: anonaddy
   pods:
   - name: app
     image: mirror.gcr.io/anonaddy/anonaddy:latest
-    path: /login
+    path: /
     servicePorts:
     - 8000
     vars:
@@ -17,7 +22,7 @@ application:
       DB_PORT: "3306"
       DB_DATABASE: anonaddy
       DB_USERNAME: anonaddy
-      DB_PASSWORD: "${MYSQL_PASSWORD}"
+      DB_PASSWORD: "anonadypass"
       DB_TIMEOUT: "300"
       CACHE_DRIVER: redis
       QUEUE_CONNECTION: redis
@@ -31,20 +36,30 @@ application:
       MAIL_FROM_ADDRESS: mailer@relaxed-weasel-anonaddy.cloud.nexlayer.ai
       ANONADDY_DOMAIN: relaxed-weasel-anonaddy.cloud.nexlayer.ai
       ANONADDY_HOSTNAME: relaxed-weasel-anonaddy.cloud.nexlayer.ai
+      ANONADDY_ENABLE_REGISTRATION: "true"
   - name: anonaddy-mysql
-    image: mirror.gcr.io/library/mysql:5.7
+    image: mirror.gcr.io/library/mysql:8.0
     servicePorts:
     - 3306
     vars:
       MYSQL_DATABASE: anonaddy
       MYSQL_USER: anonaddy
-      MYSQL_PASSWORD: anonaddy_pass_250
-      MYSQL_ROOT_PASSWORD: anonaddy_root_250
+      MYSQL_PASSWORD: "anonadypass"
+      MYSQL_ROOT_PASSWORD: "anonadyrootpass"
     volumes:
-    - name: anonaddy-db-v8
+    - name: anonaddy-db-v5
       mountPath: /var/lib/mysql
       size: 10Gi
   - name: anonaddy-redis
     image: mirror.gcr.io/library/redis:7-alpine
     servicePorts:
     - 6379
+```
+
+Pinned facts:
+- Pre-built image mirror.gcr.io/anonaddy/anonaddy:latest — do NOT rebuild from source
+- Both-literal pattern: MYSQL_PASSWORD=anonadypass hardcoded in DB pod AND DB_PASSWORD=anonadypass hardcoded in app pod (no ${} substitution needed)
+- Use mysql:8.0 (NOT mariadb) — server replaces mariadb with mysql; MYSQL_* vars only
+- Volume anonaddy-db-v5 for fresh MySQL data with correct passwords
+- ANONADDY_ENABLE_REGISTRATION=true required
+- Do not regenerate Dockerfile or nexlayer.yaml
