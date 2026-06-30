@@ -38,7 +38,9 @@ application:
     vars:
       MYSQL_DATABASE: anonaddy
       MYSQL_USER: anonaddy
-      MARIADB_RANDOM_ROOT_PASSWORD: "yes"
+      MYSQL_PASSWORD: anonaddy_pass_250
+      MYSQL_ROOT_PASSWORD: anonaddy_root_250
+      MARIADB_AUTO_UPGRADE: "1"
     volumes:
     - name: anonaddy-db-v9
       mountPath: /var/lib/mysql
