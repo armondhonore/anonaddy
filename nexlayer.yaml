@@ -31,6 +31,7 @@ application:
       MAIL_FROM_ADDRESS: mailer@relaxed-weasel-anonaddy.cloud.nexlayer.ai
       ANONADDY_DOMAIN: relaxed-weasel-anonaddy.cloud.nexlayer.ai
       ANONADDY_HOSTNAME: relaxed-weasel-anonaddy.cloud.nexlayer.ai
+      ANONADDY_ENABLE_REGISTRATION: "true"
   - name: anonaddy-mysql
     image: mirror.gcr.io/library/mysql:8.0
     servicePorts:

@@ -22,7 +22,7 @@ application:
       DB_PORT: "3306"
       DB_DATABASE: anonaddy
       DB_USERNAME: anonaddy
-      DB_PASSWORD: ${MYSQL_PASSWORD}
+      DB_PASSWORD: "anonadypass"
       DB_TIMEOUT: "300"
       CACHE_DRIVER: redis
       QUEUE_CONNECTION: redis
@@ -44,8 +44,8 @@ application:
     vars:
       MYSQL_DATABASE: anonaddy
       MYSQL_USER: anonaddy
-      MYSQL_PASSWORD: anonadypass
-      MYSQL_ROOT_PASSWORD: anonadyrootpass
+      MYSQL_PASSWORD: "anonadypass"
+      MYSQL_ROOT_PASSWORD: "anonadyrootpass"
     volumes:
     - name: anonaddy-db-v5
       mountPath: /var/lib/mysql
@@ -58,7 +58,8 @@ application:
 
 Pinned facts:
 - Pre-built image mirror.gcr.io/anonaddy/anonaddy:latest — do NOT rebuild from source
-- Octobox pattern: mysql pod has HARDCODED MYSQL_PASSWORD=anonadypass; app pod uses ${MYSQL_PASSWORD} reference (platform substitutes "anonadypass")
+- Both-literal pattern: MYSQL_PASSWORD=anonadypass hardcoded in DB pod AND DB_PASSWORD=anonadypass hardcoded in app pod (no ${} substitution needed)
 - Use mysql:8.0 (NOT mariadb) — server replaces mariadb with mysql; MYSQL_* vars only
 - Volume anonaddy-db-v5 for fresh MySQL data with correct passwords
+- ANONADDY_ENABLE_REGISTRATION=true required
 - Do not regenerate Dockerfile or nexlayer.yaml
