@@ -17,8 +17,8 @@ application:
       DB_PORT: "3306"
       DB_DATABASE: anonaddy
       DB_USERNAME: anonaddy
-      DB_PASSWORD: "anonadypass"
-      DB_TIMEOUT: "300"
+      DB_PASSWORD: "${MYSQL_PASSWORD}"
+      DB_TIMEOUT: "120"
       CACHE_DRIVER: redis
       QUEUE_CONNECTION: redis
       SESSION_DRIVER: redis
@@ -33,16 +33,16 @@ application:
       ANONADDY_HOSTNAME: relaxed-weasel-anonaddy.cloud.nexlayer.ai
       ANONADDY_ENABLE_REGISTRATION: "true"
   - name: anonaddy-mysql
-    image: mirror.gcr.io/library/mariadb:10.11
+    image: mirror.gcr.io/library/mysql:8.0
     servicePorts:
     - 3306
     vars:
-      MARIADB_DATABASE: anonaddy
-      MARIADB_USER: anonaddy
-      MARIADB_PASSWORD: "anonadypass"
-      MARIADB_ROOT_PASSWORD: "anonadyrootpass"
+      MYSQL_DATABASE: anonaddy
+      MYSQL_USER: anonaddy
+      MYSQL_PASSWORD: "${MYSQL_PASSWORD}"
+      MYSQL_ROOT_PASSWORD: "${MYSQL_ROOT_PASSWORD}"
     volumes:
-    - name: anonaddy-db-v3
+    - name: anonaddy-db-v4
       mountPath: /var/lib/mysql
       size: 10Gi
   - name: anonaddy-redis
