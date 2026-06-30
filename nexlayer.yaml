@@ -32,7 +32,7 @@ application:
       ANONADDY_DOMAIN: relaxed-weasel-anonaddy.cloud.nexlayer.ai
       ANONADDY_HOSTNAME: relaxed-weasel-anonaddy.cloud.nexlayer.ai
   - name: anonaddy-mysql
-    image: mirror.gcr.io/library/mysql:5.7
+    image: mirror.gcr.io/library/mariadb:10.11
     servicePorts:
     - 3306
     vars:
@@ -40,8 +40,9 @@ application:
       MYSQL_USER: anonaddy
       MYSQL_PASSWORD: anonaddy_pass_250
       MYSQL_ROOT_PASSWORD: anonaddy_root_250
+      MARIADB_AUTO_UPGRADE: "1"
     volumes:
-    - name: anonaddy-db-v8
+    - name: anonaddy-db-v9
       mountPath: /var/lib/mysql
       size: 10Gi
   - name: anonaddy-redis
