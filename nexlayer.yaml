@@ -18,7 +18,7 @@ application:
       DB_DATABASE: anonaddy
       DB_USERNAME: anonaddy
       DB_PASSWORD: "${MYSQL_PASSWORD}"
-      DB_TIMEOUT: "120"
+      DB_TIMEOUT: "300"
       CACHE_DRIVER: redis
       QUEUE_CONNECTION: redis
       SESSION_DRIVER: redis
